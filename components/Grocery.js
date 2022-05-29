@@ -26,7 +26,7 @@ export default function Grocery() {
          }
     
     const handleSearch=(text)=>{
-        const searchResult=DisplayData.filter((item)=>item.toLowerCase())
+        const searchResult=DisplayData.filter((item)=>item.includes(text))
       setDisplayData(searchResult)
       }
     
