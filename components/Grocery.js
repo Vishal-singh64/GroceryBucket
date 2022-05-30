@@ -12,6 +12,7 @@ import { BtnContainer, CancelDataBtn,
 export default function Grocery() {
    const [GroceryData, setGroceryData] = useState()
    const [DisplayData, setDisplayData] = useState([])
+   const [searchData, setsearchData] = useState([])
    const [Visible, setVisible] = useState(false);
 
       const ListUpdateHandler=(text)=>{
@@ -22,12 +23,18 @@ export default function Grocery() {
     
       const handleAddText=()=>{
         setDisplayData([...DisplayData,GroceryData])
+        setsearchData([...DisplayData,GroceryData])
         setVisible(false)
          }
     
     const handleSearch=(text)=>{
-        const searchResult=DisplayData.filter((item)=>item.includes(text))
+      if(text !== ''){
+        const searchResult=DisplayData.filter((item)=>item.toLowerCase().includes(text.toLowerCase()))
+        console.log(searchResult)
       setDisplayData(searchResult)
+     } else {
+       setDisplayData(searchData)
+     }
       }
     
   return (
@@ -59,7 +66,7 @@ export default function Grocery() {
     </Search_Add>
 
         
-    {DisplayData.map((item,index)=>{
+    {DisplayData.reverse().map((item,index)=>{
       return (
         <GroceryList key={index}text={item} />
       )})}
